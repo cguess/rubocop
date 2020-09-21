@@ -38,8 +38,8 @@ RSpec.describe RuboCop::Cop::Lint::Debugger, :config do
 
   it 'reports an offense for a jard binding call' do
     expect_offense(<<~RUBY)
-      binding.jard
-      ^^^^^^^^^^^^^^^^^^ Remove debugger entry point `binding.jard`.
+      jard
+      ^^^^ Remove debugger entry point `jard`.
     RUBY
   end
 
