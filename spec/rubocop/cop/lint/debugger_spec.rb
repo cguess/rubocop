@@ -36,6 +36,13 @@ RSpec.describe RuboCop::Cop::Lint::Debugger, :config do
     RUBY
   end
 
+  it 'reports an offense for a jard binding call' do
+    expect_offense(<<~RUBY)
+      binding.jard
+      ^^^^^^^^^^^^^^^^^^ Remove debugger entry point `binding.jard`.
+    RUBY
+  end
+
   context 'with capybara debug method call' do
     it 'reports an offense for save_and_open_page' do
       expect_offense(<<~RUBY)
@@ -161,7 +168,7 @@ RSpec.describe RuboCop::Cop::Lint::Debugger, :config do
   end
 
   %w[debugger byebug console pry remote_pry pry_remote irb save_and_open_page
-     save_and_open_screenshot save_screenshot remote_byebug].each do |src|
+     save_and_open_screenshot save_screenshot remote_byebug jard].each do |src|
     it "does not report an offense for a #{src} in comments" do
       expect_no_offenses("# #{src}")
     end
